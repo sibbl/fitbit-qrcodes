@@ -1,7 +1,7 @@
 {
   "name": "fitbit-qrcodes",
-  "version": "1.0.0",
-  "description": "A QR code app without any limits",
+  "version": "1.0.1",
+  "description": "Fitbit app to display QR codes, which can either be generated or imported from screenshots.",
   "private": true,
   "dependencies": {
     "@fitbit/image-codec-txi": "^1.1.5",
@@ -16,9 +16,9 @@
   "fitbit": {
     "appUUID": "489b1207-0bac-432a-b919-6329fa8ccf12",
     "appType": "app",
-    "appDisplayName": "CovCert",
+    "appDisplayName": "QR Codes",
     "iconFile": "resources/icon.png",
-    "wipeColor": "#607d8b",
+    "wipeColor": "#0074d9",
     "requestedPermissions": [],
     "buildTargets": [
       "higgs",
