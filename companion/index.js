@@ -16,7 +16,7 @@ class CovCertCompanion {
       "change",
       this.onSettingsChange.bind(this)
     );
-    this.settings = this.readSettings();
+    this.readSettings();
   }
 
   init() {
@@ -98,18 +98,16 @@ class CovCertCompanion {
     console.log(`Enqueued ${fileTransfer.name}`);
   }
 
-  onSettingsChange() {
+  onSettingsChange(evt) {
+    if (evt.oldValue === evt.newValue) return;
     console.info("Settings have been changed!");
-    const oldSettings = this.settings;
-    this.settings = this.readSettings();
+    this.applySettingsItem(evt.key, evt.newValue);
 
     QR_CODES_ITERATOR.forEach((i) => {
       const hasChanged =
-        !oldSettings ||
         ["enabled", "content", "errorCorrectionLevel"]
           .map((key) => `${key}${i}`)
-          .map((key) => oldSettings[key] !== this.settings[key])
-          .some((x) => x === true);
+          .some((key) => key === evt.key);
       if (hasChanged) {
         console.log("Settings of QR code " + i + " have been changed.");
         this.updateQrCodeAsync(
@@ -125,30 +123,34 @@ class CovCertCompanion {
   }
 
   readSettings() {
-    const settings = {};
+    this.settings = {};
 
     for (let i = 0; i < settingsStorage.length; i++) {
       const key = settingsStorage.key(i);
       const rawSettingValue = settingsStorage.getItem(key);
-      if (rawSettingValue === "true") {
-        // toggle input
-        settings[key] = true;
-        continue;
-      }
-      try {
-        const json = JSON.parse(rawSettingValue);
-        if (!json) continue;
-        settings[key] = json.name
-          ? json.name // text input
-          : json.values
-          ? json.values[0].value // select input
-          : undefined;
-      } catch (e) {
-        console.error(`Failed to set setting ${key}`);
-      }
+      this.applySettingsItem(key, rawSettingValue);
+    }
+  }
+
+  applySettingsItem(key, rawSettingValue) {
+    if (rawSettingValue === "true") {
+      // toggle input
+      this.settings[key] = true;
+      return;
     }
 
-    return settings;
+    try {
+      const json = JSON.parse(rawSettingValue);
+      if (!json) this.settings[key] = undefined;
+      this.settings[key] = json.name
+        ? json.name // text input
+        : json.values
+        ? json.values[0].value // select input
+        : undefined;
+    } catch (e) {
+      console.error(`Failed to set setting ${key}`);
+      if (!json) this.settings[key] = undefined;
+    }
   }
 }
 

@@ -71,8 +71,6 @@ function saveSettings() {
 }
 
 function applySettings() {
-  console.log("applySettings", JSON.stringify(mySettings));
-
   let hasQrCode = false;
 
   const containerEl = document
