@@ -2,6 +2,9 @@ import { outbox } from "file-transfer";
 import { settingsStorage } from "settings";
 import qrcode from "qrcode-generator";
 import { encode, TXIOutputFormat } from "@fitbit/image-codec-txi";
+import { Image } from "image";
+
+console.log("companion load");
 
 const QR_CODE_MIN_SIZE = 200; // size used on device
 const MAX_QR_CODE_COUNT = 10;
@@ -10,7 +13,7 @@ const QR_CODES_ITERATOR = Array.from(
   (_, i) => i + 1
 );
 
-class CovCertCompanion {
+class QrCodesCompanion {
   constructor() {
     settingsStorage.addEventListener(
       "change",
@@ -103,13 +106,30 @@ class CovCertCompanion {
     console.info("Settings have been changed!");
     this.applySettingsItem(evt.key, evt.newValue);
 
-    QR_CODES_ITERATOR.forEach((i) => {
-      const hasChanged =
-        ["enabled", "content", "errorCorrectionLevel"]
-          .map((key) => `${key}${i}`)
-          .some((key) => key === evt.key);
-      if (hasChanged) {
-        console.log("Settings of QR code " + i + " have been changed.");
+    QR_CODES_ITERATOR.forEach(async (i) => {
+      const hasChanged = ["enabled", "content", "image", "errorCorrectionLevel"]
+        .map((key) => `${key}${i}`)
+        .some((key) => key === evt.key);
+      console.log("hasChanged " + i + (hasChanged ? "yes" : "no"));
+      if (!hasChanged) return;
+
+      console.log("Settings of QR code " + i + " have been changed.");
+
+      if (evt.key === `image${i}` && evt.newValue) {
+        settingsStorage.setItem(`content${i}`, "");
+        this.settings[`content${i}`] = null;
+
+        const imageData = JSON.parse(evt.newValue);
+        const imageUri = imageData.imageUri;
+        const image = await Image.from(imageUri);
+        const txiImage = await image.export("image/vnd.fitbit.txi", {
+          background: "#FFFFFF",
+        });
+        await this.sendFileAsync(`file${i}`, txiImage);
+      } else if (evt.key === `content${i}` && evt.newValue) {
+        settingsStorage.setItem(`image${i}`, "");
+        this.settings[`image${i}`] = null;
+
         this.updateQrCodeAsync(
           i,
           this.settings[`enabled${i}`],
@@ -148,11 +168,10 @@ class CovCertCompanion {
         ? json.values[0].value // select input
         : undefined;
     } catch (e) {
-      console.error(`Failed to set setting ${key}`);
-      if (!json) this.settings[key] = undefined;
+      this.settings[key] = undefined;
     }
   }
 }
 
-const app = new CovCertCompanion();
+const app = new QrCodesCompanion();
 app.init();
