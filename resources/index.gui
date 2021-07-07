@@ -1,0 +1,60 @@
+<svg viewport-fill="white">
+  <defs>
+    <symbol id='custom-pagination-dot' href='#pagination-dot' width="12">
+      <set href='#pagination-circle' attributeName='fill' to='#333333' />
+      <set href='#pagination-circle' attributeName='fill-opacity' to='1' />
+      <set href='#pagination-circle' attributeName='r' to='2' />
+    </symbol>
+    <symbol id='custom-pagination-highlight-dot' href='#pagination-highlight-dot' width="12">
+      <set href='#pagination-circle' attributeName='fill' to='#333333' />
+      <set href='#pagination-circle' attributeName='r' to='4' />
+    </symbol>
+
+    <symbol id='qr-code-card' href='#panoramaview-item'>
+      <section x="50%-100" y="50%-100" width="200" height="200">
+        <image width="100%" height="100%" id="image" />
+        <text id="text" x="50%" y="100%+18" font-size="18" text-anchor="middle" fill="#333333" text-length="50" />
+      </section>
+
+    </symbol>
+
+    <symbol id='qr-panorama'>
+      <use id='container' href='#panoramaview' overflow='hidden'>
+        <use id='qr-code-1' href='#qr-code-card' display='none' />
+        <use id='qr-code-2' href='#qr-code-card' display='none' />
+        <use id='qr-code-3' href='#qr-code-card' display='none' />
+        <use id='qr-code-4' href='#qr-code-card' display='none' />
+        <use id='qr-code-5' href='#qr-code-card' display='none' />
+        <use id='qr-code-6' href='#qr-code-card' display='none' />
+        <use id='qr-code-7' href='#qr-code-card' display='none' />
+        <use id='qr-code-8' href='#qr-code-card' display='none' />
+        <use id='qr-code-9' href='#qr-code-card' display='none' />
+        <use id='qr-code-10' href='#qr-code-card' display='none' />
+
+        <use id='pagination-dots' class='pagination' href='#pagination-widget' y='50%-116'>
+          <use href='#custom-pagination-dot' />
+          <use href='#custom-pagination-dot' />
+          <use href='#custom-pagination-dot' />
+          <use href='#custom-pagination-dot' />
+          <use href='#custom-pagination-dot' />
+          <use href='#custom-pagination-dot' />
+          <use href='#custom-pagination-dot' />
+          <use href='#custom-pagination-dot' />
+          <use href='#custom-pagination-dot' />
+          <use href='#custom-pagination-dot' />
+          <use href='#custom-pagination-highlight-dot' />
+        </use>
+      </use>
+    </symbol>
+  </defs>
+
+  <use id="panorama" href="#qr-panorama" />
+
+
+  <use id='message' href='#mixed-text-center-mid'>
+    <set href='#header/text' attributeName='fill' to='#0074d9' />
+    <set href='#header/text' attributeName='text-buffer' to='QR Codes' />
+    <set href='#copy/text' attributeName='fill' to='#333333' />
+    <set href='#copy/text' attributeName='text-buffer' to='Please configure QR codes in app settings' />
+  </use>
+</svg>
