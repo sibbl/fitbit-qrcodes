@@ -1,0 +1,10 @@
+.qrcode {
+  opacity: 0;
+  x: 50%-137;
+  y: 50%-140;
+  width: 275;
+  height: 275;
+}
+#text {
+  y: 100%+10;
+}
