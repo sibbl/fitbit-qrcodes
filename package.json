@@ -1,6 +1,6 @@
 {
   "name": "fitbit-qrcodes",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Fitbit app to display QR codes, which can either be generated or imported from screenshots.",
   "private": true,
   "dependencies": {
