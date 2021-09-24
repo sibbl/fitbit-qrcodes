@@ -8,7 +8,7 @@
     "qrcode-generator": "^1.4.4"
   },
   "devDependencies": {
-    "@fitbit/sdk": "~4.2.1",
+    "@fitbit/sdk": "^4.3.2",
     "@fitbit/sdk-cli": "*"
   },
   "author": "sibbl",
