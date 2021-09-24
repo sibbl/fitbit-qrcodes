@@ -92,13 +92,13 @@ function applySettings() {
 
     cardEl.style.display = enabled ? "inline" : "none";
 
-    const imgEl = cardEl.getElementById("image");
+    const imgEl = cardEl.getElementById("qr-code-image");
     if (imgEl) {
       const filename = mySettings[`file${i}`];
       imgEl.href = filename || "";
     }
 
-    const textEl = cardEl.getElementById("text");
+    const textEl = cardEl.getElementById("qr-code-label");
     if (textEl) {
       textEl.text =
         metadata[i] && metadata[i].label

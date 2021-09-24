@@ -1,10 +1,12 @@
-.qrcode {
-  opacity: 0;
+#qr-code-area {
   x: 50%-137;
   y: 50%-140;
   width: 275;
   height: 275;
 }
-#text {
-  y: 100%+10;
+#qr-code-label {
+  y: 100%+12;
+}
+#pagination-dots {
+  y: 1;
 }

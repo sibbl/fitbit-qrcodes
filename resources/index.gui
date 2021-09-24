@@ -11,9 +11,9 @@
     </symbol>
 
     <symbol id='qr-code-card' href='#panoramaview-item'>
-      <section class="qrcode">
-        <image width="100%" height="100%" id="image" />
-        <text id="text" x="50%" font-size="16" text-anchor="middle" fill="#333333" text-length="50" />
+      <section id="qr-code-area">
+        <image width="100%" height="100%" id="qr-code-image" />
+        <text id="qr-code-label" text-length="50" />
       </section>
 
     </symbol>
@@ -31,7 +31,7 @@
         <use id='qr-code-9' href='#qr-code-card' display='none' />
         <use id='qr-code-10' href='#qr-code-card' display='none' />
 
-        <use id='pagination-dots' class='pagination' href='#pagination-widget' y='2'>
+        <use id='pagination-dots' class='pagination' href='#pagination-widget'>
           <use href='#custom-pagination-dot' />
           <use href='#custom-pagination-dot' />
           <use href='#custom-pagination-dot' />
