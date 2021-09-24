@@ -1,0 +1,12 @@
+#qr-code-area {
+  x: 50%-113;
+  y: 50%-114;
+  width: 226;
+  height: 226;
+}
+#qr-code-label {
+  y: 100%+12;
+}
+#pagination-dots {
+  y: 2;
+}

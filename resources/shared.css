@@ -1,0 +1,9 @@
+#qr-code-label {
+  x: 50%;
+  font-size: 16;
+  text-anchor: middle;
+  fill: #333333;
+}
+#qr-code-area {
+  opacity: 0;
+}
